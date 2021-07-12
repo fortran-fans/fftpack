@@ -1,3 +1,6 @@
+# fpm files
 build*
 API-doc/*
 
+# vscode files
+.vscode/*
