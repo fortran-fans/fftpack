@@ -1,0 +1,30 @@
+name = "fftpack"
+version = "5.1"
+
+[build]
+auto-executables = false
+auto-tests = false
+auto-examples = false
+
+[library]
+source-dir="src"
+
+[dev-dependencies]
+forlab = { git = "https://github.com/zoziha/forlab.git"}
+
+# ================================ tests =======================================
+## [fftpack] tests
+[[test]]
+name="fftpack_fftpack"
+source-dir="test/fftpack"
+main="test_fftpack_fftpack.f90"
+[[test]]
+name="fftpack_john_fft"
+source-dir="test/fftpack"
+main="test_fftpack_john_fft.f90"
+
+## [mismatch] tests
+[[test]]
+name="mismatch"
+source-dir="test/mismatch"
+main="test_mismatch.f90"

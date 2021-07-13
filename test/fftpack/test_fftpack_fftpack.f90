@@ -1,0 +1,94 @@
+program example_fft
+
+    use fftpack, only: fft, ifft, czt, conv, xcorr, hilbert, filter, &
+                       freq2ind, ind2freq, fftshift, ifftshift
+    use forlab_io, only: disp, loadbin, savebin
+    use forlab_linalg, only: ones
+    implicit none
+
+    integer(kind=4) :: i, k
+    real(kind=8), dimension(:), allocatable :: x, y, w, signal, fsignal
+    complex(kind=8), dimension(:), allocatable :: cfft
+
+    ! 1D Fast Fourier transform
+    !===========================
+    print *, "1D Fast Fourier transform:"
+
+    x = [1., 1., 1., 1., 0., 0., 0., 0., 0.]
+
+    call disp(fft(x))
+
+    ! 1D Fast Fourier transform using CZT
+    !=====================================
+    print * ; print *, "1D Fast Fourier transform using CZT:"
+
+    call disp(czt(x))
+
+    print * ; print *, "1D Inverse Fourier transform:"
+
+    call disp(ifft(fft(x, 10)))
+
+    ! Convolution
+    !=============
+    print * ; print *, "Convolution:"
+
+    call disp(conv(dble([1., 2., 3., 4., 5., 6.]), dble([6., 7., 8., 1., 2., 4.])))
+
+    ! Correlation
+    !=============
+    print * ; print *, "Correlation:"
+
+    call disp(xcorr(dble([1., 2., 3., 4., 5., 6.]), dble([6., 7., 8., 1., 2., 4.])))
+
+    ! Hilbert transform
+    !===================
+    print * ; print *, "Hilbert transform:"
+
+    call disp(hilbert(dble([1., 2., 3., 4., 5., 6.])))
+
+    ! Smooth data using convolution
+    !===============================
+    print * ; print *, "Smooth data using convolution:"
+
+    x = [-2., 3., 5., -8., 8., 7., -8., -5., 2.]
+    k = 3
+    block
+        real*8, allocatable :: tmp(:)
+        allocate (tmp(k))
+        call ones(tmp)
+        y = conv(dble(x), tmp)
+    end block
+    y = y(k/2 + 1:k/2 + size(x))/k
+
+    call disp(y)
+
+    ! Convert frequency to index
+    !============================
+    print * ; print *, "Convert frequency to index:"
+
+    print *, freq2ind(250., 500., 1200)
+
+    ! Convert index to frequency
+    !============================
+    print * ; print *, "Convert index to frequency:"
+
+    print *, ind2freq(600, 500., 1200)
+
+    ! Shift the Fourier transform
+    !=============================
+    print * ; print *, "Shift the Fourier transform:"
+
+    cfft = fft(x, 10)
+    cfft = fftshift(cfft)
+
+    call disp(cfft)
+
+    ! Inverse shift the Fourier transform
+    !=====================================
+    print * ; print *, "Inverse shift the Fourier transform:"
+
+    cfft = ifftshift(cfft)
+
+    call disp(cfft)
+
+end program example_fft
