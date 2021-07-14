@@ -1,0 +1,15 @@
+name = "fftpack"
+version = "5.1"
+
+[build]
+auto-executables = false
+auto-tests = false
+auto-examples = false
+
+[library]
+source-dir="src"
+
+[[test]]
+name = "test"
+source-dir = "test"
+main = "fftpack51_test.f90"

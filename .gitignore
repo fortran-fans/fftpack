@@ -1,0 +1,5 @@
+# fpm files
+build/
+
+# vscode files
+.vscode/*
