@@ -15,6 +15,21 @@ auto-executables = false
 auto-tests = false
 auto-examples = false
 
+# examples
+[[example]]
+name = "fftpack_fft2"
+source-dir = "example"
+main = "demo_fftpack_fft2.f90"
+[[example]]
+name = "fftpack_ifft2"
+source-dir = "example"
+main = "demo_fftpack_ifft2.f90"
+
+[dev-dependencies]
+stdlib = { git="https://github.com/LKedward/stdlib-fpm.git" }
+forlab = { git="https://github.com/fortran-fans/forlab.git" }
+
+
 # Original test
 [[test]]
 name = "tstfft"
@@ -31,6 +46,11 @@ main = "test_fftpack_zfft.f90"
 name = "fftpack_fft"
 source-dir = "test"
 main = "test_fftpack_fft.f90"
+
+[[test]]
+name = "fftpack_fft2"
+source-dir = "test"
+main = "test_fftpack_fft2.f90"
 
 [[test]]
 name = "fftpack_ifft"

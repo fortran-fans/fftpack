@@ -5,7 +5,7 @@ module fftpack
     private
 
     public :: zffti, zfftf, zfftb
-    public :: fft, ifft
+    public :: fft, ifft, fft2, ifft2
     public :: fftshift, ifftshift
 
     public :: dffti, dfftf, dfftb
@@ -175,6 +175,28 @@ module fftpack
             complex(kind=dp), allocatable :: result(:)
         end function ifft_dp
     end interface ifft
+
+    !> Version: experimental
+    !>
+    !> Forward transform of a rank-2 and double complex periodic sequence.
+    !> ([Specifiction](../page/specs/fftpack.html#fft2))
+    interface fft2
+        pure module function fft2_dp(x) result(result)
+            complex(kind=dp), intent(in) :: x(:, :)
+            complex(kind=dp), allocatable :: result(:, :)
+        end function fft2_dp
+    end interface fft2
+
+    !> Version: experimental
+    !>
+    !> Backward transform of a rank-2 and double complex periodic sequence.
+    !> ([Specifiction](../page/specs/fftpack.html#ifft2))
+    interface ifft2
+        pure module function ifft2_dp(x) result(result)
+            complex(kind=dp), intent(in) :: x(:, :)
+            complex(kind=dp), allocatable :: result(:, :)
+        end function ifft2_dp
+    end interface ifft2
 
     !> Version: experimental
     !>

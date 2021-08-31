@@ -281,6 +281,105 @@ program demo_ifft
 end program demo_ifft
 ```
 
+### `fft2`
+
+#### Description
+
+Computes the rank-2 forward complex discrete fourier transform (the fourier analysis).   
+
+#### Status
+
+Experimental.
+
+#### Class
+
+Pure function.
+
+#### Syntax
+
+`result = [[fftpack(module):fft2(interface)]](x)`
+
+#### Argument
+
+`x`: Shall be a `complex` and rank-2 array.
+This argument is `intent(in)`. 
+
+#### Return value
+
+Returns a `complex` and rank-2 array, the Discrete Fourier Transform (DFT) of `x`.
+
+#### Notes
+
+Within numerical accuracy, `x == ifft2(fft2(x))/(size(x, 1)*size(x, 2))`.
+
+#### Example
+
+```fortran
+program demo_fftpack_fft2
+
+    use fftpack, only: fft2
+    use forlab_io, only: disp
+
+    complex(kind=8), allocatable :: x(:, :)
+    x = reshape(spread([1, 2, 3, 4], 1, 4), [4, 4])
+    call disp(fft2(x), "fft2(x): ")
+    
+    !! (40.00,0.000)            (-8.000,8.000)            (-8.000,0.000)           (-8.000,-8.000)
+    !! (0.000,0.000)             (0.000,0.000)             (0.000,0.000)             (0.000,0.000)
+    !! (0.000,0.000)             (0.000,0.000)             (0.000,0.000)             (0.000,0.000)
+    !! (0.000,0.000)             (0.000,0.000)             (0.000,0.000)             (0.000,0.000)
+
+end program demo_fftpack_fft2
+
+```
+
+### `ifft2`
+
+#### Description
+
+Unnormalized inverse of `fft2`.
+
+#### Status
+
+Experimental.
+
+#### Class
+
+Pure function.
+
+#### Syntax
+
+`result = [[fftpack(module):ifft(interface)]](x)`
+
+#### Argument
+
+`x`: Shall be a `complex` and rank-2 array.
+This argument is `intent(in)`. 
+
+#### Return value
+
+Returns a `complex` and rank-2 array, the unnormalized inverse Discrete Fourier Transform (DFT) of `x`.
+
+#### Example
+
+```fortran
+program demo_fftpack_ifft2
+
+    use fftpack, only: fft2, ifft2
+    use forlab_io, only: disp
+
+    complex(kind=8), allocatable :: x(:, :)
+    x = reshape(spread([1, 2, 3, 4], 1, 4), [4, 4])
+    call disp(ifft2(fft2(x))/(size(x, 1)*size(x, 2)), "ifft2(fft2(x))/(size(x, 1)*size(x, 2)): ")
+
+    !! (1.000,0.000)             (2.000,0.000)             (3.000,0.000)             (4.000,0.000)
+    !! (1.000,0.000)             (2.000,0.000)             (3.000,0.000)             (4.000,0.000)
+    !! (1.000,0.000)             (2.000,0.000)             (3.000,0.000)             (4.000,0.000)
+    !! (1.000,0.000)             (2.000,0.000)             (3.000,0.000)             (4.000,0.000)
+
+end program demo_fftpack_ifft2
+```
+
 ## Fourier transform of double real periodic sequences
 ### `dffti`
 
